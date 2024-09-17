@@ -8,6 +8,7 @@ import net.kyori.adventure.title.TitlePart
 import org.bukkit.ChatColor
 import org.bukkit.GameMode
 import org.bukkit.Location
+import org.bukkit.Sound
 import java.time.Duration
 import kotlin.math.PI
 import kotlin.math.atan2
@@ -76,13 +77,14 @@ class GameSession(javaPlugin: FastToDie)
         p.invincible = true
 
         p.player.sendTitlePart(
-            TitlePart.TITLE, Component.text(ChatColor.GOLD.toString() + "1位 !!"))
+            TitlePart.TITLE, Component.text(ChatColor.GOLD.toString() + "${p.place}位 !!"))
         p.player.sendTitlePart(
             TitlePart.TIMES, Title.Times.times(
                 Duration.ofMillis(500),
                 Duration.ofMillis(3000),
                 Duration.ofMillis(500)
             ))
+        p.player.playSound(p.player, Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1f, 1f)
 
         if (goaledPlayer!!.size == inGamePlayers!!.size)
         {
@@ -103,6 +105,7 @@ class GameSession(javaPlugin: FastToDie)
                         Duration.ofMillis(500)
                     )
                 )
+                it.player.playSound(it.player, Sound.ENTITY_ENDER_DRAGON_GROWL, 1f, 1f)
             }
 
             isStarted = false

@@ -6,10 +6,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.title.Title
 import net.kyori.adventure.title.TitlePart
-import org.bukkit.ChatColor
-import org.bukkit.GameMode
-import org.bukkit.Location
-import org.bukkit.Material
+import org.bukkit.*
 import org.bukkit.inventory.ItemStack
 import java.time.Duration
 
@@ -39,6 +36,7 @@ object PvpEventTickHandler : Runnable
                             Duration.ZERO,
                             Duration.ofMillis(1000),
                             Duration.ZERO))
+                    it.player.playSound(it.player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 2.0f, 1.0f)
                 }
             }
         }
@@ -60,9 +58,11 @@ object PvpEventTickHandler : Runnable
                             Duration.ZERO,
                             Duration.ofMillis(1000),
                             Duration.ZERO))
+                    it.player.playSound(it.player, Sound.BLOCK_ANVIL_LAND, 1.0f, 1.0f)
                 }
                 gameSession.isMoveable = false
                 count = -1
+
             }
             if (pvpPlayer!!.size == 1)
             {
@@ -80,6 +80,7 @@ object PvpEventTickHandler : Runnable
                     Component.text("ジャンプ棒").decorate(TextDecoration.BOLD))
                 first.player.inventory.addItem(item)
                 first.player.sendMessage("[Info] ジャンプ棒を付与しました")
+
 
                 gameSession.inGamePlayers!!.forEach {
                     if (it != first)
@@ -103,6 +104,7 @@ object PvpEventTickHandler : Runnable
                         it.player.gameMode = GameMode.SURVIVAL
                     }
                     it.coolTimeTick = 5
+                    it.player.playSound(it.player, Sound.BLOCK_ANVIL_USE, 1f, 1f)
                 }
 
                 gameSession.inPvping = false

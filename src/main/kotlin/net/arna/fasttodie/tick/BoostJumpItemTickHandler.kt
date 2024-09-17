@@ -4,6 +4,7 @@ import net.arna.fasttodie.FastToDie
 import net.kyori.adventure.text.Component
 import org.bukkit.ChatColor
 import org.bukkit.Material
+import org.bukkit.Sound
 import org.bukkit.inventory.ItemStack
 
 
@@ -43,6 +44,7 @@ object BoostJumpItemTickHandler : Runnable
                     jmp.setY(plugin.config.getDouble("boost-jump-vector-y-value"))
 
                     player.player.velocity = jmp
+                    player.player.playSound(player.player, Sound.ENTITY_FIREWORK_ROCKET_LAUNCH, 1f, 1f)
 
                     player.player.sendActionBar(Component.text(" "))
                     player.boostCharge = 0
