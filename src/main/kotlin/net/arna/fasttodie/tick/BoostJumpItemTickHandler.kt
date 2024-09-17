@@ -18,12 +18,13 @@ object BoostJumpItemTickHandler : Runnable
         if (!gameSession.isStarted) return
         for (player in gameSession.inGamePlayers!!)
         {
+            player.player.sendMessage("unko")
             val mainHandItem = player.player.inventory.itemInMainHand
 
             if (mainHandItem.type != Material.CARROT_ON_A_STICK)
             {
                 player.boostCharge = 0
-                return
+                continue
             }
 
             if (!player.player.isSneaking)
@@ -35,7 +36,7 @@ object BoostJumpItemTickHandler : Runnable
                             ChatColor.WHITE.toString() + "[Shift]" +
                                     ChatColor.GRAY.toString() + " : チャージする"))
                     player.boostCharge = 0
-                    return
+                    continue
                 }
                 else
                 {
@@ -51,7 +52,7 @@ object BoostJumpItemTickHandler : Runnable
                     player.player.inventory.setItemInMainHand(ItemStack(Material.AIR))
                     player.boostJumping = true
                     player.invincible = true
-                    return
+                    continue
                 }
             }
 

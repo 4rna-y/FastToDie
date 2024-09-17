@@ -1,7 +1,6 @@
 package net.arna.fasttodie.tick
 
 import net.arna.fasttodie.FastToDie
-import net.arna.fasttodie.InGamePlayer
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.title.Title
@@ -16,18 +15,16 @@ object PvpEventTickHandler : Runnable
     private val gameSession = FastToDie.gameSession!!
 
     private var count = 120
-    private var pvpPlayer: MutableList<InGamePlayer>? = null
 
     override fun run()
     {
         if (!gameSession.isStarted) return
 
-        pvpPlayer = gameSession.inGamePlayers!!
         if (count <= 20 * 3)
         {
             if (count % 20 == 0)
             {
-                pvpPlayer!!.forEach {
+                gameSession.pvpPlayer!!.forEach {
                     it.player.sendTitlePart(
                         TitlePart.TITLE, Component.text(count / 20))
                     it.player.sendTitlePart(
@@ -41,14 +38,12 @@ object PvpEventTickHandler : Runnable
             }
         }
 
-
-
         if (count != 0 && count != -1) count--
         else
         {
             if (count == 0)
             {
-                pvpPlayer!!.forEach {
+                gameSession.pvpPlayer!!.forEach {
                     it.player.sendTitlePart(
                         TitlePart.TITLE, Component.text(
                             ChatColor.GOLD.toString() + "スタート！！"))
@@ -64,9 +59,10 @@ object PvpEventTickHandler : Runnable
                 count = -1
 
             }
-            if (pvpPlayer!!.size == 1)
+
+            if (gameSession.pvpPlayer!!.size == 1)
             {
-                val first = pvpPlayer!!.first()
+                val first = gameSession.pvpPlayer!!.first()
                 first.player.sendTitlePart(
                     TitlePart.TITLE, Component.text("勝利！！"))
                 first.player.sendTitlePart(

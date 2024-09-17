@@ -30,6 +30,7 @@ class GameSession(javaPlugin: FastToDie)
 
     var eventTick: Int = 0
     var inPvping = false
+    var pvpPlayer: MutableList<InGamePlayer>? = null
     var eventTaskId: Int = 0
 
     var bossBar: BossBar? = null
@@ -54,6 +55,9 @@ class GameSession(javaPlugin: FastToDie)
 
         eventTick = 0
         isStarted = true
+
+        plugin.logger.info(playerMovementLimit.toString())
+        plugin.logger.info(playerRotationLimit.toString())
 
         return Result()
     }
@@ -134,6 +138,7 @@ class GameSession(javaPlugin: FastToDie)
                     Duration.ofMillis(2000),
                     Duration.ofMillis(500)))
         }
+        pvpPlayer = inGamePlayers!!.toMutableList()
 
         eventTaskId = plugin.registerTickHandler(PvpEventTickHandler)
     }

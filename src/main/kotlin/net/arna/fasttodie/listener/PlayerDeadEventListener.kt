@@ -1,9 +1,7 @@
 package net.arna.fasttodie.listener
 
 import net.arna.fasttodie.FastToDie
-import net.arna.fasttodie.PitchYawRotation
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.TextComponent
 import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -36,6 +34,7 @@ object PlayerDeadEventListener : Listener
             if (gameSession.inPvping)
             {
                 player.player.gameMode = GameMode.SPECTATOR
+                gameSession.pvpPlayer!!.remove(player)
                 e.isCancelled = true
 
                 return

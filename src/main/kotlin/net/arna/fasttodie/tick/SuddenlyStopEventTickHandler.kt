@@ -51,23 +51,26 @@ object SuddenlyStopEventTickHandler : Runnable
                             Duration.ZERO,
                         ))
 
-                    gameSession.bossBar = BossBar.bossBar(
+                    player.bossBar = BossBar.bossBar(
                         Component.text("動くと死んでしまう"),
                         stopCount / 100f,
                         BossBar.Color.RED,
                         BossBar.Overlay.PROGRESS)
 
-                    player.player.showBossBar(gameSession.bossBar!!)
+                    player.player.showBossBar(player.bossBar!!)
                 }
             }
 
-            gameSession.bossBar!!.progress(stopCount / 100f)
+            gameSession.inGamePlayers!!.forEach {
+                it.bossBar!!.progress(stopCount / 100f)
+            }
 
             if (stopCount == 0)
             {
                 for (player in gameSession.inGamePlayers!!)
                 {
-                    player.player.hideBossBar(gameSession.bossBar!!)
+                    player.player.hideBossBar(player.bossBar!!)
+                    player.bossBar = null
                 }
 
                 gameSession.playerMovementLimit = 1.3

@@ -1,5 +1,5 @@
 name: FastToDie
-version: '0.1'
+version: '0.2'
 main: net.arna.fasttodie.FastToDie
 api-version: '1.19'
 load: STARTUP

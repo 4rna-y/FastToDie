@@ -36,12 +36,12 @@ object FallingTntEventTickHandler : Runnable
                         Duration.ofMillis(200),
                     ))
 
-                gameSession.bossBar = BossBar.bossBar(
+                player.bossBar = BossBar.bossBar(
                     Component.text("上から来るぞ！気をつけろ！！"),
                     count / 400f,
                     BossBar.Color.GREEN,
                     BossBar.Overlay.PROGRESS)
-                player.player.showBossBar(gameSession.bossBar!!)
+                player.player.showBossBar(player.bossBar!!)
 
                 player.player.addPotionEffect(
                     PotionEffect(
@@ -67,14 +67,17 @@ object FallingTntEventTickHandler : Runnable
             }
         }
 
-        gameSession.bossBar!!.progress(count / 400f)
+        gameSession.inGamePlayers!!.forEach {
+            it.bossBar!!.progress(count / 400f)
+        }
 
         if (count == 0)
         {
             gameSession.isInvincible = false
             for (player in gameSession.inGamePlayers!!)
             {
-                player.player.hideBossBar(gameSession.bossBar!!)
+                player.player.hideBossBar(player.bossBar!!)
+                player.bossBar = null
             }
 
             plugin.unregisterTickHandler(gameSession.eventTaskId)

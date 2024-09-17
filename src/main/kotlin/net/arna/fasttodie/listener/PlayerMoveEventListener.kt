@@ -30,6 +30,7 @@ object PlayerMoveEventListener : Listener
             {
                 player.invincible = false
                 player.boostJumping = false
+
             }
         }
     }
@@ -47,7 +48,6 @@ object PlayerMoveEventListener : Listener
         if (player.boostJumping && e.cause == EntityDamageEvent.DamageCause.FALL)
         {
             e.isCancelled = true
-            //player.invincible = false
         }
 
     }

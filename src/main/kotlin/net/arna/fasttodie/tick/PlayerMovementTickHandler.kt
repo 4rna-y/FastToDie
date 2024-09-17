@@ -51,7 +51,7 @@ object PlayerMovementTickHandler : Runnable
                         player.player.damage(4545.1919)
                     }
 
-                    player.continuationLocationTick++;
+                    player.continuationLocationTick++
                     if (player.continuationLocationTick == plugin.config.getInt("location-blind-tick"))
                     {
                         player.player.addPotionEffect(
@@ -64,7 +64,7 @@ object PlayerMovementTickHandler : Runnable
 
                     }
                     else
-                    if (player.continuationLocationTick == plugin.config.getInt("location-damage-tick"))
+                    if (player.continuationLocationTick > plugin.config.getInt("location-damage-tick"))
                     {
                         player.deathType = 1
                         player.player.damage(4545.1919)

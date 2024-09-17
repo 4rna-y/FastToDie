@@ -16,4 +16,5 @@ class InGamePlayer(val player: Player)
     var invincible = false
     var goaled = false
     var place = 0
+    var bossBar: BossBar? = null
 }

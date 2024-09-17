@@ -30,16 +30,18 @@ object InvincibleEventTickHandler : Runnable
                         Duration.ofMillis(500),
                     ))
 
-                gameSession.bossBar = BossBar.bossBar(
+                player.bossBar = BossBar.bossBar(
                     Component.text("無敵タイム"),
                     count / 200f,
                     BossBar.Color.GREEN,
                     BossBar.Overlay.PROGRESS)
-                player.player.showBossBar(gameSession.bossBar!!)
+                player.player.showBossBar(player.bossBar!!)
             }
         }
 
-        gameSession.bossBar!!.progress(count / 200f)
+        gameSession.inGamePlayers!!.forEach {
+            it.bossBar!!.progress(count / 200f)
+        }
 
         count--
 
@@ -48,7 +50,8 @@ object InvincibleEventTickHandler : Runnable
             gameSession.isInvincible = false
             for (player in gameSession.inGamePlayers!!)
             {
-                player.player.hideBossBar(gameSession.bossBar!!)
+                player.player.hideBossBar(player.bossBar!!)
+                player.bossBar = null
             }
 
             plugin.unregisterTickHandler(gameSession.eventTaskId)
