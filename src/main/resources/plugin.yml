@@ -1,0 +1,10 @@
+name: FastToDie
+version: '0.1'
+main: net.arna.fasttodie.FastToDie
+api-version: '1.19'
+load: STARTUP
+
+commands:
+  ftd:
+    usage: "/ftd"
+    description: "FastToDie commands"
